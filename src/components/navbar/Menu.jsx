@@ -10,7 +10,7 @@ import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import {Link, useLocation} from 'react-router'
+import {Link, useLocation} from 'react-router-dom'
 
 export default function Menu() {
   const [open, setOpen] = React.useState(true);

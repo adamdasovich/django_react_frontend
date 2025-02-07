@@ -32,12 +32,13 @@ const Create = () => {
 
   const formik = useFormik({
     initialValues: {
-      name: 'Adam',
+      name: '',
       city: '',
       league: '',
       country: '',
       attendance: 0,
       characteristic: [],
+      description: '',
     },
     onSubmit: (values) => {
       AxiosInstance.post(`club/`, values)
@@ -48,19 +49,18 @@ const Create = () => {
 
   })
 
-
   console.log('Form values ', formik.values)
 
   return (
     <div>
-      <form onSubmit={formik.handleSubmit}>
-      <Box className={'TopBar'}>
+      <form onSubmit={formik.handleSubmit} >
+      <Box className={'TopBar'} sx={{marginLeft: '100px'}}>
         <AddBoxIcon />
         <Typography sx={{ marginLeft: '15px', fontWeight: 'bold' }} variant='subtitle2'>
           Create a new Team
         </Typography>
       </Box>
-      <Box className={'FormBox'}>
+      <Box className={'FormBox'} sx={{marginLeft: '100px', width: '90%'}}>
         <Box className={'FormArea'}>
           <Box sx={{ marginTop: '30px' }}>
             <TextForm
