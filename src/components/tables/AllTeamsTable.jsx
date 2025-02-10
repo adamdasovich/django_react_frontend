@@ -7,13 +7,13 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Link } from 'react-router-dom';
+import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 
-export default function AllTeamsTable({ tableData }) {
-  console.log(Array.isArray(tableData)); // Should log true
-
+export default function AllTeamsTable({ tableData, onDelete }) {
+    console.log(Array.isArray(tableData));
   return (
-    <TableContainer component={Paper} sx={{ width: '100%' }}> {/* Ensure width here */}
-      <Table sx={{ minWidth: 650, width: '100%' }} aria-label="simple table"> {/* Ensure width here */}
+    <TableContainer component={Paper} sx={{ width: '100%' }}>
+      <Table sx={{ minWidth: 650, width: '100%' }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>Club Name</TableCell>
@@ -21,12 +21,13 @@ export default function AllTeamsTable({ tableData }) {
             <TableCell align="right">Country</TableCell>
             <TableCell align="right">League</TableCell>
             <TableCell align="right">Attendance</TableCell>
+            <TableCell align='right'>Delete</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {tableData.map((tdata) => ( // Use map directly on tableData (array)
+          {tableData.map((tdata) => (
             <TableRow
-              key={tdata.id} // Or whatever unique ID your data has
+              key={tdata.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
@@ -38,6 +39,12 @@ export default function AllTeamsTable({ tableData }) {
               <TableCell align="right">{tdata.country}</TableCell>
               <TableCell align="right">{tdata.league}</TableCell>
               <TableCell align="right">{tdata.attendance}</TableCell>
+              <TableCell align='right'>
+                  <DeleteForeverOutlinedIcon 
+                    onClick={() => onDelete(tdata.id)}
+                    style={{cursor: 'pointer'}}
+                  />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
