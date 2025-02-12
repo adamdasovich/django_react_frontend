@@ -10,8 +10,8 @@ const Home = () => {
     AxiosInstance.get('club/')
       .then(res => setTableData(res.data));
 
-    AxiosInstance.get('club/1')
-      .then(res => console.log(res.data))
+    // AxiosInstance.get('club/1')
+    //   .then(res => console.log(res.data))
   };
 
   useEffect(() => {

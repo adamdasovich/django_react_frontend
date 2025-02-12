@@ -7,6 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
+import FormHelperText from '@mui/material/FormHelperText';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -19,7 +20,7 @@ const MenuProps = {
   },
 };
 
-export default function MultiSelectForm({ label, options, value, onChange, name, onBlur }) {
+export default function MultiSelectForm({ label, options, value, onChange, name, onBlur, error, helperText }) {
   const theme = useTheme();
   
   return (
@@ -33,6 +34,8 @@ export default function MultiSelectForm({ label, options, value, onChange, name,
         onChange={onChange}
         name = {name} 
         onBlur={onBlur}
+        error={error}
+        helperText={helperText}
         input={<OutlinedInput id="select-multiple-chip" label={label} />}
         renderValue={(selected) => (
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
@@ -54,6 +57,7 @@ export default function MultiSelectForm({ label, options, value, onChange, name,
           <MenuItem disabled>No options available</MenuItem>
         )}
       </Select>
+      <FormHelperText error>{helperText}</FormHelperText>
     </FormControl>
   );
 }
