@@ -19,8 +19,8 @@ export default function ShortMenu() {
       component="nav"
       aria-labelledby="nested-list-subheader"      
     >     
-      <ListItemButton component={Link} to='/' selected={path === '/'} sx={{disply: 'flex', justifyContent:'center'}}>
-        <ListItemIcon sx={{disply: 'flex', justifyContent:'center'}}>
+      <ListItemButton component={Link} to='/' selected={path === '/'} sx={{display: 'flex', justifyContent:'center'}}>
+        <ListItemIcon sx={{display: 'flex', justifyContent:'center'}}>
           <DashboardIcon />
         </ListItemIcon>
       </ListItemButton> 

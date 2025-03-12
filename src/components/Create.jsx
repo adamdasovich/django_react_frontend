@@ -81,11 +81,16 @@ const Create = () => {
   console.log('Form values ', formik.values)
 
   return (
-    <div>
-      <form onSubmit={formik.handleSubmit} >
-      <Box className={'TopBar'} sx={{marginLeft: '100px'}}>
+    <Box sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      flexGrow: 1,
+      p: 2
+    }}>
+      <form onSubmit={formik.handleSubmit} style={{flexGrow: 1, width: '100%'}}>
+      <Box className={'TopBar'} >
         <AddBoxIcon />
-        <Typography sx={{ marginLeft: '15px', fontWeight: 'bold' }} variant='subtitle2'>
+        <Typography sx={{ ml: '15px', fontWeight: 'bold' }} variant='subtitle2'>
           Create a new Team
         </Typography>      
       </Box>
@@ -94,7 +99,7 @@ const Create = () => {
         messagecolor={'green'}
       /> */}
       {message}
-      <Box className={'FormBox'} sx={{marginLeft: '100px', width: '90%'}}>
+      <Box className={'FormBox'} sx={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly'}}>
         <Box className={'FormArea'}>
           <Box sx={{ marginTop: '30px' }}>
             <TextForm
@@ -189,7 +194,7 @@ const Create = () => {
         </Box>
       </Box>
       </form>
-    </div>
+    </Box>
   );
 };
 

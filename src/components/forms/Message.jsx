@@ -14,7 +14,7 @@ export default function MyMessage({messageText, messagecolor}) {
             display: 'flex',
             backgroundColor: messagecolor,
             alignItems: 'center',
-            marginLeft: '100px'
+            ml: '100px'
         }}
     >
         <Typography>{messageText}</Typography>

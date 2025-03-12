@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useMemo } from 'react';
 // import AllTeamsTable from './tables/AllTeamsTable';
 import AxiosInstance from './axios';
-import { Box, Typography, Chip } from '@mui/material';
+import { Box, Typography, Chip, IconButton } from '@mui/material';
 import ViewCompactIcon from '@mui/icons-material/ViewCompact';
 import {MaterialReactTable} from 'material-react-table'
+import { Link } from 'react-router-dom'
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const Home = () => {
   const [myData, setMyData] = useState([]); // Initialize as an EMPTY ARRAY
@@ -13,7 +16,8 @@ const Home = () => {
       .then(res => {
         setMyData(res.data);
         console.log(res.data)
-      }) 
+      })
+      .catch(err => console.log(err)) 
   };
 
   useEffect(() => {
@@ -25,8 +29,6 @@ const Home = () => {
       {
         accessorKey: 'name',
         header: 'Name',
-        muiTableHeadCellProps: {align: 'center'},
-        muiTableBodyCellProps: {align: 'center'}
       },      
       {
         accessorKey: 'country_details.name',
@@ -57,7 +59,11 @@ const Home = () => {
 
           </div>
         )
-      }
+      },
+      {
+        accessorKey: 'description',
+        header: 'Description'
+      },
     ]
   )
 
@@ -69,19 +75,30 @@ const Home = () => {
   // }
 
   return (
-    <div>
-    <Box className={'TopBar'} sx={{marginLeft: '100px'}}>
+    <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', flexGrow: 1}}>
+      <Box className={'TopBar'} >
         <ViewCompactIcon />
-        <Typography sx={{ marginLeft: '15px', fontWeight: 'bold' }} variant='subtitle2'>
+        <Typography sx={{ ml: '15px', fontWeight: 'bold' }} variant='subtitle2'>
           All Teams
         </Typography>      
       </Box>
       <MaterialReactTable
         columns={columns}
         data={myData}
+        enableRowActions
+        renderRowActions={({row}) => (
+          <Box sx={{display: 'flex', flexWrap:'nowrap', gap:'8px'}}>
+            <IconButton color='secondary' component={Link} to={`edit/${row.original.id}`}>
+              <EditIcon />
+            </IconButton>
+            <IconButton component={Link} to={`delete/${row.original.id}`} color='warning'>
+              <DeleteIcon />
+            </IconButton>
+          </Box>
+        )}
       />
 
-    </div>
+    </Box>
   );
 };
 

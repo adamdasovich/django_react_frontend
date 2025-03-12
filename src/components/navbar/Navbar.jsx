@@ -13,7 +13,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { IconButton } from '@mui/material';
 
 const drawerWidth = 240;
-const shortDrawerWidth = 80;
+const shortDrawerWidth = 89;
 
 export default function Navbar({ content }) {
   const [isBigMenu, setIsBigMenu] = useState(false);
@@ -24,7 +24,7 @@ export default function Navbar({ content }) {
     <Box sx={{ display: 'flex' }}> {/* Key: Flexbox for layout */}
       <CssBaseline />
       <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-        <Toolbar sx={{ height: '60px' }}>
+        <Toolbar >
           <IconButton sx={{ marginRight: '25px', color: 'white' }} onClick={() => setIsBigMenu(!isBigMenu)}>
             {isBigMenu ? <MenuOpenIcon /> : <MenuIcon />}
           </IconButton>
@@ -42,7 +42,14 @@ export default function Navbar({ content }) {
         <Toolbar />
         {isBigMenu ? <Menu /> : <ShortMenu />}
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3,  ml: adjustedWidth}}> {/* Key Change: ml only */}
+      <Box 
+        component="main" 
+        sx={{ 
+          flexGrow: 1, 
+          p: 3,  
+          width: `calc(100% - ${adjustedWidth}px)`
+        }}
+      > 
         <Toolbar />
         {content}
       </Box>
