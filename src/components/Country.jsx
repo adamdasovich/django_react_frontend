@@ -1,29 +1,94 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useMemo} from 'react'
 import AxiosInstance from './axios'
 import { useParams } from 'react-router-dom'
+import { Box, Typography, Chip, IconButton } from '@mui/material'
+import { MaterialReactTable } from 'material-react-table'
+import { Link } from 'react-router-dom'
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const Country = () => {
-  const [countryData, setCountryData] = useState()
+  const [clubData, setClubData] = useState([])
 
   const pageParam = useParams()
-  const pageId = pageParam.id
-  console.log(pageId)
+  const countryId = pageParam.id
+  console.log(countryId)
 
   const getData = () => {
-    AxiosInstance.get(`country/${pageId}/`)
+    AxiosInstance.get(`country/${countryId}/`)
     .then(res => {
-        setCountryData(res.data)
-        console.log(countryData)
+        setClubData(res.data)
+        console.log(res.data)
     })
+    .catch(err => console.log(err))
   }
   
   useEffect(() => {
     getData()
-  })
+  }, [countryId])
+
+  const columns = useMemo(
+    () => [
+      {
+        accessoryKey: 'name',
+        header: 'Name',
+      },
+      {
+        accessorKey: 'league_details.name',
+        header: 'League'
+      },
+      {
+        accessorKey: 'city',
+        header: 'City'
+      },
+      {
+        accessorKey: 'attendance',
+        header: 'Attendance'
+      },
+      {
+        accessorKey: 'characteristic_names',
+        header: 'Characteristic',
+          Cell: ({cell}) => (
+            <div style={{display:'flex', gap:'8px', flexWrap: 'wrap'}}>
+              {
+                cell.getValue()?.map((char,index) => (
+                  <Chip key={index} label={char}/>
+                ))
+             }
+                   </div>
+           )
+      },
+      {
+        accessorKey: 'description',
+        header: 'Description'
+      },
+    ]
+  )
 
 
   return (
-    <div>Country</div>
+    <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', flexGrow: 1}}>
+      <Box className={'TopBar'}>
+        <Typography sx={{ ml: '15px', fontWeight: 'bold' }} variant='subtitle2'>
+          {clubData[0]?.country_details?.name ? `All Teams from: ${clubData[0].country_details.name}` : 'Loading teams...'}
+        </Typography>
+      </Box>
+      <MaterialReactTable
+        columns={columns}
+        data={clubData}
+        enableRowActions
+        renderRowActions={({row}) => (
+          <Box sx={{display: 'flex', flexWrap:'nowrap', gap:'8px'}}>
+            <IconButton color='secondary' component={Link} to={`edit/${row.original.id}`}>
+              <EditIcon />
+            </IconButton>
+            <IconButton component={Link} to={`delete/${row.original.id}`} color='warning'>
+              <DeleteIcon />
+            </IconButton>
+          </Box>
+        )}
+      />
+    </Box>
   )
 }
 

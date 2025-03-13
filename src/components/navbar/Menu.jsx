@@ -62,7 +62,7 @@ export default function Menu() {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {menuData.map(country => (
-            <ListItemButton key={country.id} sx={{ pl: 4 }} component={Link} to={`country/${country.name}`}>           
+            <ListItemButton key={country.id} sx={{ pl: 4 }} component={Link} to={`country/${country.id}`}>           
             <ListItemIcon>
               <DashboardCustomizeIcon />
             </ListItemIcon>
